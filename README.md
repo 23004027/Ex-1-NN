@@ -1,8 +1,8 @@
 <H3>NAME : Vignesh V</H3>
 <H3>REGISTER NO. : 212223230241</H3>
 <H3>EX. NO.1</H3>
-<H3>DATE : 2-02-2026</H3>
-<H1 ALIGN =CENTER> Introduction to Kaggle and Data preprocessing</H1>
+<H3>DATE :        </H3>
+<H1 Introduction to Kaggle and Data preprocessing</H1>
 
 ## AIM:
 
