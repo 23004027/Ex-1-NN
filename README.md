@@ -1,5 +1,5 @@
-<H3>NAME : Vignesh V</H3>
-<H3>REGISTER NO. : 212223230241</H3>
+<H3>ENTER YOUR NAME : Vignesh V</H3>
+<H3>ENTER YOUR REGISTER NO : 212223230241</H3>
 <H3>EX. NO.1</H3>
 <H3>DATE :        </H3>
 <H1 ALIGN =CENTER> Introduction to Kaggle and Data preprocessing</H1>
@@ -37,68 +37,123 @@ STEP 5:Normalizing the data<BR>
 STEP 6:Splitting the data into test and train<BR>
 
 ##  PROGRAM:
+
 ```
-#Import libraries
 import pandas as pd
-import numpy as np
+import io
+from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 
-#Load dataset
-data = pd.read_csv("Churn_Modelling.csv")
-print("First 5 rows:\n", data.head())
+df = pd.read_csv("Churn_Modelling.csv")
+df
 
-#Explore dataset
-print("\nDataset Info:\n")
-print(data.info())
+df.isnull().sum()
 
-print("\nMissing Values:\n")
-print(data.isnull().sum())
+df.fillna(0)
+df.isnull().sum()
 
-print("\nStatistical Summary:\n")
-print(data.describe())
+df.duplicated()
 
-#Drop irrelevant columns
-# RowNumber, CustomerId, and Surname don't help prediction
-data = data.drop(['RowNumber','CustomerId','Surname'], axis=1)
+df['EstimatedSalary'].describe()
 
-#Encode categorical variables (Geography, Gender)
-label = LabelEncoder()
-data['Geography'] = label.fit_transform(data['Geography'])
-data['Gender'] = label.fit_transform(data['Gender'])
+scaler = StandardScaler()
+inc_cols = ['CreditScore', 'Tenure', 'Balance', 'EstimatedSalary']
+scaled_values = scaler.fit_transform(df[inc_cols])
+df[inc_cols] = pd.DataFrame(scaled_values, columns = inc_cols, index = df.index)
+df
 
-print("\nAfter Encoding:\n", data.head())
+x = df.iloc[:, :-1]
+y = df.iloc[:, -1]
 
-#Separate features and target
-X = data.drop('Exited', axis=1).values   
-y = data['Exited'].values              
+print("X Values")
+x
 
-#Normalize features
-scaler = MinMaxScaler()
-X_scaled = scaler.fit_transform(X)
-print("\nNormalized Features (first 5 rows):\n", X_scaled[:5])
+print("Y Values")
+y
 
-#Train-test split
-X_train, X_test, y_train, y_test = train_test_split(
-    X_scaled, y, test_size=0.2, random_state=42
-)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.2, random_state = 42)
 
-print("\nTraining set size:", X_train.shape)
-print("Testing set size:", X_test.shape)
+print("X Training data")
+x_train
+
+print("X Testing data")
+x_test
 
 ```
-
-
 ## OUTPUT:
-![alt text](<Screenshot 2026-02-02 102315.png>)
 
-![alt text](<Screenshot 2026-02-02 102331.png>)
 
-![alt text](<Screenshot 2026-02-02 102338.png>)
+# Read the dataset from drive
 
-![alt text](<Screenshot 2026-02-02 102345.png>)
 
-![alt text](<Screenshot 2026-02-02 102352.png>)
+<img width="1040" height="332" alt="image" src="https://github.com/user-attachments/assets/95886d73-5ced-416e-9781-bec388c52d3c" />
+
+
+# Finding Missing Values
+
+
+<img width="148" height="413" alt="image" src="https://github.com/user-attachments/assets/da4cc688-b622-4835-8100-70bcc2d269bf" />
+
+
+# Handling Missing values
+
+
+
+<img width="131" height="423" alt="image" src="https://github.com/user-attachments/assets/a7a16c50-ec35-4847-b3ed-19b510026ca8" />
+
+
+
+# Check for Duplicates
+
+
+<img width="175" height="365" alt="image" src="https://github.com/user-attachments/assets/8d9b7ac4-cf02-474a-9405-2e896a1b0252" />
+
+# Detect Outliers
+
+
+
+
+<img width="192" height="254" alt="image" src="https://github.com/user-attachments/assets/76373161-9f91-4ad5-aee9-c80c671c8539" />
+
+
+
+# Normalize the dataset
+
+
+
+
+<img width="1039" height="367" alt="image" src="https://github.com/user-attachments/assets/8a952d37-3f80-4b58-8b03-7f4dcdc8f859" />
+
+
+
+
+# Split the dataset into input and output
+
+
+
+
+<img width="998" height="347" alt="image" src="https://github.com/user-attachments/assets/a05d50d7-c535-41d4-b291-1ea95b65256e" />
+
+
+
+
+<img width="275" height="379" alt="image" src="https://github.com/user-attachments/assets/0a8d410b-45b0-4299-9bbb-0531c61d005d" />
+
+# Print the training data and testing data
+
+
+
+
+<img width="1003" height="351" alt="image" src="https://github.com/user-attachments/assets/c7697a45-94fd-4484-9b66-f908177a9601" />
+
+
+
+
+<img width="967" height="322" alt="image" src="https://github.com/user-attachments/assets/fec07e45-9e7b-4247-a91e-08cf03d67ff2" />
+
+
+
 
 ## RESULT:
 Thus, Implementation of Data Preprocessing is done in python  using a data set downloaded from Kaggle.
